@@ -2,3 +2,10 @@ streamlit
 pandas
 numpy
 scikit-learn
+prophet>=1.1
+streamlit
+pandas
+numpy
+prophet
+cmdstanpy
+matplotlib
