@@ -38,9 +38,21 @@ python -m http.server 8765
 ```
 Depois acesse: `http://localhost:8765/webapp/`
 
-### Opção 3 — Publicar na web
-Envie a pasta do projeto para qualquer hospedagem estática (Netlify, Vercel,
-GitHub Pages, S3...). A aplicação encontra o CSV em `../data/` automaticamente.
+### Opção 3 — Publicar no GitHub Pages (já configurado neste repositório)
+A pasta [`docs/`](docs) é o espelho de publicação: contém uma cópia de `webapp/` +
+`data/vendas_tratadas.csv` pronta para o GitHub Pages servir direto do branch `main`.
+
+Para ativar (uma vez só): **Settings → Pages → Source: Deploy from a branch →
+Branch: `main` / `docs` → Save**. Em ~1 minuto o site fica público em
+`https://<usuario>.github.io/<repositorio>/`.
+
+> ⚠️ O repositório é público, então o link fica acessível a qualquer pessoa —
+> incluindo os números reais de faturamento. Torne o repositório privado
+> (exige GitHub Pro para Pages em repo privado) se isso for um problema.
+
+### Opção 4 — Outra hospedagem estática
+Envie a pasta `webapp/` (+ `data/`) para qualquer hospedagem estática (Netlify,
+Vercel, S3...). A aplicação encontra o CSV em `../data/` automaticamente.
 
 ## 🔄 Atualizando os dados
 
@@ -49,6 +61,10 @@ mesmas colunas (ou arrastar o novo arquivo na tela de abertura). Todos os númer
 gráficos, insights e a previsão se recalculam sozinhos.
 
 Para regenerar o CSV tratado a partir da base bruta: `python export.py`.
+
+Depois de atualizar os dados ou editar `webapp/`, rode `./sync_docs.sh` para
+espelhar as mudanças em `docs/` antes de dar commit/push — é isso que mantém o
+GitHub Pages em dia.
 
 ## 🗂️ Arquitetura
 
@@ -59,6 +75,8 @@ Para regenerar o CSV tratado a partir da base bruta: `python export.py`.
 │   └── js/
 │       ├── engine.js       # Parse do CSV, agregações, insights e modelo de previsão
 │       └── app.js          # Interface: filtros, gráficos ECharts, tabelas e navegação
+├── docs/                   # Espelho de publicação (GitHub Pages serve daqui)
+├── sync_docs.sh            # Copia webapp/ + data/ para docs/
 ├── data/
 │   └── vendas_tratadas.csv # Base tratada de vendas
 ├── export.py               # Pipeline: gera o CSV tratado a partir do bruto
