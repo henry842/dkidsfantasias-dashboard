@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DKidsFantasias · BI de Vendas</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎭</text></svg>">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<!-- ==================== Tela de carga do CSV ==================== -->
+<div id="telaCarga">
+  <div class="drop" id="zonaDrop">
+    <div class="icone-drop">🎭</div>
+    <h2>DKidsFantasias · BI de Vendas</h2>
+    <p id="msgCarga">Carregando base de vendas…</p>
+    <button class="btn" id="btnEscolher" style="display:none">📂 Escolher arquivo CSV</button>
+    <input type="file" id="inputCsv" accept=".csv" style="display:none">
+  </div>
+  <div id="msgErro"></div>
+</div>
+
+<!-- ==================== Sidebar ==================== -->
+<aside class="sidebar">
+  <div class="brand">
+    <div class="logo">🎭</div>
+    <div>
+      <div class="nome">DKidsFantasias</div>
+      <div class="sub">BI de Vendas</div>
+    </div>
+  </div>
+
+  <nav class="nav" id="navPrincipal">
+    <button data-vista="home" class="ativo"><span class="icone">🎭</span> Visão Executiva</button>
+    <button data-vista="produtos"><span class="icone">🧸</span> Produtos &amp; Portfólio</button>
+    <button data-vista="temporalidade"><span class="icone">⏱️</span> Temporalidade</button>
+    <button data-vista="pagamentos"><span class="icone">💳</span> Pagamentos</button>
+    <button data-vista="previsao"><span class="icone">🔮</span> Previsão</button>
+  </nav>
+
+  <div class="filtros">
+    <h4>🎛️ Filtros</h4>
+    <div class="filtro">
+      <label>Período</label>
+      <div class="filtro-linha">
+        <input type="date" id="fltIni">
+        <input type="date" id="fltFim">
+      </div>
+    </div>
+    <div class="filtro">
+      <label>Categoria</label>
+      <select id="fltCategoria"><option value="">Todas</option></select>
+    </div>
+    <div class="filtro">
+      <label>Forma de pagamento</label>
+      <select id="fltPagamento"><option value="">Todas</option></select>
+    </div>
+    <button class="btn-limpar" id="btnLimpar">Limpar filtros</button>
+  </div>
+
+  <div class="rodape-side">
+    <div id="resumoFiltro"></div>
+    Dashboard Executivo<br>DKidsFantasias © 2025
+  </div>
+</aside>
+
+<!-- ==================== Conteúdo ==================== -->
+<main class="conteudo">
+
+  <!-- ========== VISÃO EXECUTIVA ========== -->
+  <section class="vista ativa" id="vista-home">
+    <div class="hero">
+      <div class="kicker">DKidsFantasias · Inteligência de Vendas</div>
+      <h1>Visão Executiva de Vendas</h1>
+      <p id="heroHomeSub">Panorama consolidado do negócio</p>
+    </div>
+    <div class="kpis" id="kpisHome"></div>
+    <div class="linha c32">
+      <div class="painel">
+        <h3>📈 Evolução mensal do faturamento</h3>
+        <div class="sub">Barras: faturamento · Linha: tendência</div>
+        <div class="grafico" id="gMensalHome"></div>
+      </div>
+      <div class="painel">
+        <h3>🧩 Faturamento por categoria</h3>
+        <div class="sub">Participação de cada categoria no período</div>
+        <div class="grafico" id="gCategorias"></div>
+      </div>
+    </div>
+    <div class="linha c32">
+      <div class="painel">
+        <h3>🏆 Top 10 produtos por faturamento</h3>
+        <div class="sub">&nbsp;</div>
+        <div class="grafico" id="gTopProdutos"></div>
+      </div>
+      <div class="painel">
+        <h3>📅 Faturamento por dia da semana</h3>
+        <div class="sub">&nbsp;</div>
+        <div class="grafico" id="gDiaSemanaHome"></div>
+      </div>
+    </div>
+    <div class="painel" style="margin-bottom:20px">
+      <h3>💡 Leitura executiva</h3>
+      <div class="sub">Insights calculados automaticamente a partir do recorte atual</div>
+      <div class="insights" id="insightsHome"></div>
+    </div>
+    <div class="rodape">DKidsFantasias · Dashboard Executivo de Vendas · Aplicação web independente</div>
+  </section>
+
+  <!-- ========== PRODUTOS ========== -->
+  <section class="vista" id="vista-produtos">
+    <div class="hero">
+      <div class="kicker">DKidsFantasias · Inteligência de Vendas</div>
+      <h1>Produtos &amp; Portfólio</h1>
+      <p id="heroProdutosSub">Concentração de receita, curva ABC e posicionamento estratégico</p>
+    </div>
+    <div class="kpis" id="kpisProdutos"></div>
+    <div class="painel" style="margin-bottom:20px">
+      <h3>📊 Curva ABC — Pareto dos 30 principais produtos</h3>
+      <div class="sub">Barras: faturamento individual · Linha: participação acumulada · Tracejado: limite de 80%</div>
+      <div class="grafico alto" id="gPareto"></div>
+      <div class="insights" id="insightAbc" style="grid-template-columns:1fr"></div>
+    </div>
+    <div class="painel" style="margin-bottom:20px">
+      <h3>🧭 Matriz estratégica — Volume × Ticket</h3>
+      <div class="sub">Cada ponto é um produto · Linhas tracejadas: medianas · Tamanho: faturamento total</div>
+      <div class="grafico alto" id="gMatriz"></div>
+      <div class="insights" id="insightsMatriz"></div>
+    </div>
+    <div class="linha c11">
+      <div class="painel">
+        <h3>🗂️ Performance por categoria</h3>
+        <div class="sub">&nbsp;</div>
+        <div class="tabela-wrap" id="tCategorias"></div>
+      </div>
+      <div class="painel">
+        <h3>💸 Consistência de preço</h3>
+        <div class="sub">Maior variação de preço unitário — descontos não padronizados ou erros de cadastro</div>
+        <div class="tabela-wrap" id="tPrecos"></div>
+      </div>
+    </div>
+    <div class="rodape">DKidsFantasias · Dashboard Executivo de Vendas</div>
+  </section>
+
+  <!-- ========== TEMPORALIDADE ========== -->
+  <section class="vista" id="vista-temporalidade">
+    <div class="hero">
+      <div class="kicker">DKidsFantasias · Inteligência de Vendas</div>
+      <h1>Temporalidade das Vendas</h1>
+      <p id="heroTempoSub">Quando o dinheiro entra: sazonalidade, dias e horários de pico</p>
+    </div>
+    <div class="kpis" id="kpisTempo"></div>
+    <div class="painel" style="margin-bottom:20px">
+      <h3>📈 Evolução mensal</h3>
+      <div class="sub">Faturamento por mês e variação percentual sobre o mês anterior</div>
+      <div class="grafico" id="gMensalTempo"></div>
+    </div>
+    <div class="painel" style="margin-bottom:20px">
+      <h3>🔥 Mapa de calor — Dia da semana × Hora</h3>
+      <div class="sub">Onde o faturamento se concentra: use para escalar equipe e horário de funcionamento</div>
+      <div class="grafico" id="gHeatmap"></div>
+    </div>
+    <div class="linha c12">
+      <div class="painel">
+        <h3>🌅 Período do dia</h3>
+        <div class="sub">&nbsp;</div>
+        <div class="grafico baixo" id="gPeriodo"></div>
+      </div>
+      <div class="painel">
+        <h3>📆 Faturamento semanal</h3>
+        <div class="sub">Semanas do calendário — picos e vales de demanda · Tracejado: média</div>
+        <div class="grafico baixo" id="gSemanal"></div>
+      </div>
+    </div>
+    <div class="painel" style="margin-bottom:20px">
+      <h3>🏆 Os 10 melhores dias do período</h3>
+      <div class="sub">&nbsp;</div>
+      <div class="tabela-wrap" id="tTopDias"></div>
+    </div>
+    <div class="rodape">DKidsFantasias · Dashboard Executivo de Vendas</div>
+  </section>
+
+  <!-- ========== PAGAMENTOS ========== -->
+  <section class="vista" id="vista-pagamentos">
+    <div class="hero">
+      <div class="kicker">DKidsFantasias · Inteligência de Vendas</div>
+      <h1>Análise de Pagamentos</h1>
+      <p id="heroPagSub">Como o cliente paga: mix de recebimento, ticket e evolução</p>
+    </div>
+    <div class="kpis" id="kpisPag"></div>
+    <div class="linha c11">
+      <div class="painel">
+        <h3>🧩 Mix de recebimento</h3>
+        <div class="sub">Participação de cada forma no faturamento</div>
+        <div class="grafico" id="gMixPag"></div>
+      </div>
+      <div class="painel">
+        <h3>🎟️ Ticket médio por forma</h3>
+        <div class="sub">Valor médio por venda em cada meio de pagamento</div>
+        <div class="grafico" id="gTicketPag"></div>
+      </div>
+    </div>
+    <div class="painel" style="margin-bottom:20px">
+      <h3>📈 Evolução do mix mês a mês</h3>
+      <div class="sub">Participação percentual de cada forma no faturamento mensal</div>
+      <div class="grafico" id="gEvolucaoPag"></div>
+    </div>
+    <div class="painel" style="margin-bottom:20px">
+      <h3>💡 Leitura executiva</h3>
+      <div class="sub">&nbsp;</div>
+      <div class="insights" id="insightsPag"></div>
+    </div>
+    <div class="rodape">DKidsFantasias · Dashboard Executivo de Vendas</div>
+  </section>
+
+  <!-- ========== PREVISÃO ========== -->
+  <section class="vista" id="vista-previsao">
+    <div class="hero">
+      <div class="kicker">DKidsFantasias · Inteligência de Vendas</div>
+      <h1>Previsão de Faturamento</h1>
+      <p id="heroPrevSub">Projeção dos próximos dias de venda com validação honesta</p>
+    </div>
+    <div class="kpis" id="kpisPrev"></div>
+    <div class="painel" style="margin-bottom:20px">
+      <h3>📊 Histórico, validação e projeção</h3>
+      <div class="sub">Roxo: faturamento real · Rosa tracejado: previsão na validação · Faixa: intervalo de 95% na projeção</div>
+      <div class="grafico alto" id="gPrevisao"></div>
+      <div class="insights" id="insightPrev" style="grid-template-columns:1fr"></div>
+    </div>
+    <div class="linha c23">
+      <div class="painel">
+        <h3>📆 Projeção por semana</h3>
+        <div class="sub">Faturamento previsto agregado por semana · Barra de erro: cenários conservador e otimista</div>
+        <div class="grafico" id="gPrevSemana"></div>
+      </div>
+      <div class="painel">
+        <h3>📋 Detalhe diário da projeção</h3>
+        <div class="sub">&nbsp;</div>
+        <div class="tabela-wrap" id="tPrevisao" style="max-height:300px;overflow-y:auto"></div>
+        <button class="btn" id="btnBaixarPrev" style="margin-top:12px">📥 Baixar projeção (CSV)</button>
+      </div>
+    </div>
+    <div class="painel">
+      <details class="metodologia">
+        <summary>🔬 Metodologia do modelo (para quem quer entender o motor)</summary>
+        <div class="corpo">
+          <p><b>Modelo:</b> sazonalidade semanal com ajuste de tendência — cada dia futuro é previsto pela média
+          ponderada dos últimos 4 mesmos dias da semana (os recentes pesam mais), multiplicada por um fator de
+          tendência amortecido (média dos últimos 14 dias vs 14 anteriores).</p><br>
+          <p><b>Validação honesta:</b> os últimos <b>28 dias de venda</b> são previstos usando apenas o passado de cada um,
+          exatamente como o modelo faria em produção. As métricas exibidas (MAE e WMAPE) vêm exclusivamente desse
+          período — sem a ilusão de precisão de modelos avaliados nos próprios dados de treino.</p><br>
+          <p><b>Projeção futura:</b> um dia por vez, realimentando o histórico com as próprias previsões.
+          Dias da semana em que a loja não registra vendas são automaticamente excluídos.</p><br>
+          <p><b>Intervalo de confiança:</b> desvio-padrão dos erros da validação × 1,96 (≈ 95% de confiança).</p><br>
+          <p><b>Limitações:</b> eventos inéditos (promoções novas, feriados atípicos, mudança de horário) não são
+          antecipados — use a projeção como referência de planejamento, não como garantia.</p>
+        </div>
+      </details>
+    </div>
+    <div class="rodape">DKidsFantasias · Dashboard Executivo de Vendas</div>
+  </section>
+
+</main>
+
+<script src="lib/echarts.min.js"></script>
+<script>
+  // Fallback: se a cópia local do ECharts não existir, usa a CDN.
+  if (!window.echarts) {
+    document.write('<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.1/dist/echarts.min.js"><\/script>');
+  }
+</script>
+<script src="js/engine.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

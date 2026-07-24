@@ -8,7 +8,6 @@ from core import ui
 from core.data import load_data, periodo_dados, sidebar_filters
 from core.ui import ACCENT, PRIMARY, SECONDARY, TEAL, fmt_brl, fmt_int, fmt_pct
 
-st.set_page_config(page_title="DKidsFantasias · Produtos", page_icon="🧸", layout="wide")
 ui.inject_css()
 
 base = load_data()
@@ -79,7 +78,9 @@ barras = base_chart.mark_bar(cornerRadiusTopLeft=4, cornerRadiusTopRight=4).enco
         alt.Tooltip("Classe:N"),
     ],
 )
-linha_acum = base_chart.mark_line(color=SECONDARY, strokeWidth=2.5, point=alt.OverlayMarkDef(color=SECONDARY, size=45)).encode(
+linha_acum = base_chart.mark_line(
+    color=SECONDARY, strokeWidth=2.5, point=alt.OverlayMarkDef(color=SECONDARY, size=45)
+).encode(
     y=alt.Y("Acumulado_pct:Q", title="Acumulado (%)", axis=alt.Axis(orient="right"), scale=alt.Scale(domain=[0, 100])),
 )
 regra_80 = alt.Chart(pd.DataFrame({"y": [80]})).mark_rule(color=SECONDARY, strokeDash=[6, 4], opacity=0.6).encode(
@@ -160,20 +161,22 @@ ui.render(scatter + regua_v + regua_h, height=420)
 c1, c2 = st.columns(2, gap="medium")
 with c1:
     estrelas = mapa[mapa["Perfil"].str.startswith("⭐")].nlargest(5, "Faturamento")["Produto"].tolist()
-    ui.insight_card(
-        "⭐ Estrelas do portfólio",
-        "Produtos que combinam giro e valor: <b>" + "</b>, <b>".join(estrelas[:3]) + "</b>. "
-        "Nunca deixe faltar em estoque — cada ruptura aqui custa caro.",
-        accent=PRIMARY,
-    )
+    if estrelas:
+        ui.insight_card(
+            "⭐ Estrelas do portfólio",
+            "Produtos que combinam giro e valor: <b>" + "</b>, <b>".join(estrelas[:3]) + "</b>. "
+            "Nunca deixe faltar em estoque — cada ruptura aqui custa caro.",
+            accent=PRIMARY,
+        )
 with c2:
     premium = mapa[mapa["Perfil"].str.startswith("💎")].nlargest(3, "Ticket_Medio")["Produto"].tolist()
-    ui.insight_card(
-        "💎 Âncoras premium",
-        "Itens de alto valor como <b>" + "</b>, <b>".join(premium[:2]) + "</b> elevam a percepção da loja "
-        "e funcionam como âncora de preço em vitrines e combos.",
-        accent=ACCENT,
-    )
+    if premium:
+        ui.insight_card(
+            "💎 Âncoras premium",
+            "Itens de alto valor como <b>" + "</b>, <b>".join(premium[:2]) + "</b> elevam a percepção da loja "
+            "e funcionam como âncora de preço em vitrines e combos.",
+            accent=ACCENT,
+        )
 
 # ---------------------------------------------------------------------------
 # Categorias
@@ -241,7 +244,9 @@ else:
             "Preco_Min": st.column_config.NumberColumn("Mínimo (R$)", format="R$ %.2f"),
             "Preco_Medio": st.column_config.NumberColumn("Médio (R$)", format="R$ %.2f"),
             "Preco_Max": st.column_config.NumberColumn("Máximo (R$)", format="R$ %.2f"),
-            "Coef_Variacao": st.column_config.ProgressColumn("Variação", format="%.0f%%", min_value=0, max_value=float(suspeitos["Coef_Variacao"].max())),
+            "Coef_Variacao": st.column_config.ProgressColumn(
+                "Variação", format="%.0f%%", min_value=0, max_value=float(suspeitos["Coef_Variacao"].max())
+            ),
         },
     )
     pior = suspeitos.iloc[0]
