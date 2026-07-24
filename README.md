@@ -1,97 +1,198 @@
-# 🎭 DKidsFantasias · BI de Vendas
+# DKids Fantasias Dashboard
 
-Aplicação web de inteligência comercial para a loja DKidsFantasias. Transforma o
-histórico de vendas em decisões: concentração de receita, sazonalidade, mix de
-pagamentos e previsão de faturamento com validação estatística honesta.
+![Jupyter](https://img.shields.io/badge/Jupyter-Notebook-orange)
+![Python](https://img.shields.io/badge/Python-3.x-blue)
+![Pandas](https://img.shields.io/badge/Pandas-Data%20Analysis-green)
+![NumPy](https://img.shields.io/badge/NumPy-Numerical%20Computing-lightgrey)
+![Matplotlib](https://img.shields.io/badge/Matplotlib-Visualization-orange)
+![Seaborn](https://img.shields.io/badge/Seaborn-Statistical%20Plots-lightblue)
+![Scikit--learn](https://img.shields.io/badge/Scikit--learn-Machine%20Learning-yellow)
+![XGBoost](https://img.shields.io/badge/XGBoost-Gradient%20Boosting-success)
+![Streamlit](https://img.shields.io/badge/Streamlit-Dashboard-red)
+![Status](https://img.shields.io/badge/Status-Portfolio%20Ready-success)
+![Language](https://img.shields.io/badge/Language-EN%20%7C%20PT--BR-blue)
 
-**100% standalone** — roda em qualquer navegador, sem instalar Python, sem servidor
-e sem dependências. É só abrir a pasta [`webapp/`](webapp) e pronto.
+---
 
-## 📊 Módulos
+## Tech Stack | Tecnologias Utilizadas
 
-| Página | O que entrega |
-|---|---|
-| **🎭 Visão Executiva** | KPIs do negócio, evolução mensal, mix de categorias, top produtos e insights automáticos |
-| **🧸 Produtos & Portfólio** | Curva ABC (Pareto), matriz estratégica Volume × Ticket, performance por categoria e auditoria de consistência de preço |
-| **⏱️ Temporalidade** | Sazonalidade mensal e semanal, mapa de calor dia × hora, melhores dias e horários de pico |
-| **💳 Pagamentos** | Mix de recebimento, ticket médio por forma, evolução do share mês a mês |
-| **🔮 Previsão** | Projeção de 30 dias com validação em holdout (28 dias fora do treino), MAE/WMAPE honestos e intervalo de confiança de 95% |
+**EN**
+- Jupyter Notebook
+- Python
+- Pandas
+- NumPy
+- Matplotlib
+- Seaborn
+- Scikit-learn
+- XGBoost
+- Streamlit
 
-## ✨ Diferenciais
+**PT-BR**
+- Jupyter Notebook
+- Python
+- Pandas para manipulacao e analise de dados
+- NumPy para computacao numerica
+- Matplotlib para visualizacao
+- Seaborn para graficos estatisticos
+- Scikit-learn para machine learning
+- XGBoost para modelos de gradient boosting
+- Streamlit para dashboard
 
-- **Zero infraestrutura:** um dashboard BI completo em HTML + JavaScript puro (ECharts). Pode ser aberto com dois cliques, hospedado em qualquer site estático ou enviado por e-mail/pendrive.
-- **Insights automáticos:** todos os textos analíticos são calculados dos dados — se atualizam com os filtros.
-- **Filtros globais** (período, categoria, forma de pagamento) aplicados a todas as análises em tempo real.
-- **Previsão validada:** o modelo é avaliado em dias que nunca viu e reporta erro real — sem ilusão de precisão.
-- **Identidade visual própria:** paleta, tipografia e componentes consistentes em todas as telas. Formatação monetária pt-BR.
+---
 
-## 🚀 Como usar
+## Executive Summary | Resumo Executivo
 
-### Opção 1 — Abrir direto (mais simples)
-1. Abra `webapp/index.html` no navegador (duplo clique).
-2. Na primeira vez, arraste o arquivo `data/vendas_tratadas.csv` para a tela.
-   O navegador memoriza a base — nas próximas aberturas carrega sozinho.
+**EN**
 
-### Opção 2 — Servidor local (carrega o CSV automaticamente)
-```bash
-python -m http.server 8765
-```
-Depois acesse: `http://localhost:8765/webapp/`
+Business dashboard, sales analytics, forecasting and customer metrics. This project was organized as a portfolio-ready case study: it explains the objective, the analytical path, the visual evidence and the practical interpretation behind the result.
 
-### Opção 3 — Publicar no GitHub Pages (já configurado neste repositório)
-A pasta [`docs/`](docs) é o espelho de publicação: contém uma cópia de `webapp/` +
-`data/vendas_tratadas.csv` pronta para o GitHub Pages servir direto do branch `main`.
+Main objective: Organize a dashboard workflow for DKids Fantasias with KPIs, forecasting, alerts and actionable business monitoring.
 
-Para ativar (uma vez só): **Settings → Pages → Source: Deploy from a branch →
-Branch: `main` / `docs` → Save**. Em ~1 minuto o site fica público em
-`https://<usuario>.github.io/<repositorio>/`.
+**PT-BR**
 
-> ⚠️ O repositório é público, então o link fica acessível a qualquer pessoa —
-> incluindo os números reais de faturamento. Torne o repositório privado
-> (exige GitHub Pro para Pages em repo privado) se isso for um problema.
+Dashboard de negocio, analise de vendas, previsao e metricas de clientes. Este projeto foi organizado como um estudo de caso pronto para portfolio: explica o objetivo, o caminho analitico, as evidencias visuais e a interpretacao pratica por tras do resultado.
 
-### Opção 4 — Outra hospedagem estática
-Envie a pasta `webapp/` (+ `data/`) para qualquer hospedagem estática (Netlify,
-Vercel, S3...). A aplicação encontra o CSV em `../data/` automaticamente.
+Objetivo principal: Organizar um fluxo de dashboard para a DKids Fantasias com KPIs, previsao, alertas e monitoramento acionavel.
 
-## 🔄 Atualizando os dados
+---
 
-Basta substituir `data/vendas_tratadas.csv` por uma versão mais recente com as
-mesmas colunas (ou arrastar o novo arquivo na tela de abertura). Todos os números,
-gráficos, insights e a previsão se recalculam sozinhos.
+## Project Workflow | Fluxo do Projeto
 
-Para regenerar o CSV tratado a partir da base bruta: `python export.py`.
+**EN**
+- Define the business or analytical question.
+- Prepare, clean and structure the available data or inputs.
+- Explore patterns through tables, metrics and visualizations.
+- Apply statistical logic, SQL, machine learning or application rules when relevant.
+- Translate the output into insights, limitations and next steps.
 
-Depois de atualizar os dados ou editar `webapp/`, rode `./sync_docs.sh` para
-espelhar as mudanças em `docs/` antes de dar commit/push — é isso que mantém o
-GitHub Pages em dia.
+**PT-BR**
+- Definir a pergunta de negocio ou de analise.
+- Preparar, limpar e estruturar os dados ou entradas disponiveis.
+- Explorar padroes por meio de tabelas, metricas e visualizacoes.
+- Aplicar logica estatistica, SQL, machine learning ou regras de aplicacao quando fizer sentido.
+- Traduzir o resultado em insights, limitacoes e proximos passos.
 
-## 🗂️ Arquitetura
+---
 
-```
-├── webapp/                 # ⭐ Aplicação web (BI standalone)
-│   ├── index.html          # Estrutura das 5 páginas
-│   ├── css/style.css       # Identidade visual
-│   └── js/
-│       ├── engine.js       # Parse do CSV, agregações, insights e modelo de previsão
-│       └── app.js          # Interface: filtros, gráficos ECharts, tabelas e navegação
-├── docs/                   # Espelho de publicação (GitHub Pages serve daqui)
-├── sync_docs.sh            # Copia webapp/ + data/ para docs/
-├── data/
-│   └── vendas_tratadas.csv # Base tratada de vendas
-├── export.py               # Pipeline: gera o CSV tratado a partir do bruto
-└── core/, app.py, views/   # Versão anterior em Streamlit (legado)
-```
+## Data Storytelling | Narrativa dos Dados
 
-## 🔮 Metodologia da previsão
+### Chapter 1 - Data Understanding | Entendimento dos Dados
 
-- **Modelo:** sazonalidade semanal (média ponderada dos últimos 4 mesmos dias da semana)
-  com fator de tendência amortecido (últimos 14 dias vs 14 anteriores).
-- **Validação:** os últimos 28 dias de venda são previstos usando apenas o passado de
-  cada um — as métricas exibidas (MAE, WMAPE, cobertura) vêm exclusivamente desse período.
-- **Intervalo de 95%:** desvio-padrão dos erros de validação × 1,96.
-- **Projeção:** dia a dia, realimentando o histórico; dias sem funcionamento são excluídos.
+![Data Understanding | Entendimento dos Dados](assets/readme/project_overview.svg)
 
-## 🛠️ Stack
+**EN**
 
-HTML5 · CSS3 · JavaScript (ES2020) · [Apache ECharts](https://echarts.apache.org/) 5
+What the dataset or inputs represent, what each observation means and which business problem is being explored.
+
+**PT-BR**
+
+O que a base ou entradas representam, qual e o significado de cada observacao e qual problema de negocio esta sendo explorado.
+
+**Insight | Insight**
+- EN: Visual evidence helps connect the technical result to a concrete decision or interpretation.
+- PT-BR: A evidencia visual ajuda a conectar o resultado tecnico a uma decisao ou interpretacao concreta.
+
+### Chapter 2 - Exploratory Analysis | Analise Exploratoria
+
+**EN**
+
+The first visual layer reveals distributions, outliers, concentrations and relationships that guide the rest of the project.
+
+**PT-BR**
+
+A primeira camada visual revela distribuicoes, outliers, concentracoes e relacoes que orientam o restante do projeto.
+
+**Insight | Insight**
+- EN: Visual evidence helps connect the technical result to a concrete decision or interpretation.
+- PT-BR: A evidencia visual ajuda a conectar o resultado tecnico a uma decisao ou interpretacao concreta.
+
+### Chapter 3 - Modeling / Logic | Modelagem ou Logica
+
+**EN**
+
+The project translates data into decisions using statistical reasoning, rules, SQL logic, machine learning or an interactive workflow.
+
+**PT-BR**
+
+O projeto transforma dados em decisoes usando raciocinio estatistico, regras, logica SQL, machine learning ou fluxo interativo.
+
+**Insight | Insight**
+- EN: Visual evidence helps connect the technical result to a concrete decision or interpretation.
+- PT-BR: A evidencia visual ajuda a conectar o resultado tecnico a uma decisao ou interpretacao concreta.
+
+### Chapter 4 - Results and Interpretation | Resultados e Interpretacao
+
+**EN**
+
+The outputs are interpreted in practical language so the repository works as both technical evidence and portfolio storytelling.
+
+**PT-BR**
+
+Os resultados sao interpretados em linguagem pratica para que o repositorio funcione como evidencia tecnica e narrativa de portfolio.
+
+**Insight | Insight**
+- EN: Visual evidence helps connect the technical result to a concrete decision or interpretation.
+- PT-BR: A evidencia visual ajuda a conectar o resultado tecnico a uma decisao ou interpretacao concreta.
+
+---
+
+## Repository Structure | Estrutura do Repositorio
+
+**EN**
+- `README.md`: complete bilingual project documentation.
+- `*.ipynb`: notebooks with the analytical workflow, experiments or visual exploration.
+- `*.py`: scripts, helpers or application logic used by the project.
+- `assets/readme/` or chart folders: visual outputs used in this README.
+
+**PT-BR**
+- `README.md`: documentacao completa e bilingue do projeto.
+- `*.ipynb`: notebooks com o fluxo analitico, experimentos ou exploracao visual.
+- `*.py`: scripts, auxiliares ou logica de aplicacao usada no projeto.
+- `assets/readme/` ou pastas de graficos: saidas visuais usadas neste README.
+
+---
+
+## How to Run | Como Executar
+
+**EN**
+1. Clone the repository.
+2. Create a virtual environment when the project uses Python.
+3. Install the required libraries listed in the notebook/script imports or in `requirements.txt`, when available.
+4. Run the notebooks or scripts from the repository root so relative paths keep working.
+
+**PT-BR**
+1. Clone o repositorio.
+2. Crie um ambiente virtual quando o projeto usar Python.
+3. Instale as bibliotecas indicadas nos imports dos notebooks/scripts ou em `requirements.txt`, quando existir.
+4. Execute notebooks ou scripts a partir da raiz do repositorio para manter os caminhos relativos funcionando.
+
+---
+
+## Key Takeaways | Principais Aprendizados
+
+**EN**
+- The repository is documented as an end-to-end analytical story, not only as code storage.
+- Visuals, when available, are placed directly in the README to make the result easier to inspect.
+- The bilingual format makes the project accessible to both English and Portuguese readers.
+
+**PT-BR**
+- O repositorio esta documentado como uma historia analitica ponta a ponta, nao apenas como armazenamento de codigo.
+- Os visuais, quando disponiveis, ficam diretamente no README para facilitar a leitura do resultado.
+- O formato bilingue torna o projeto acessivel para leitores em ingles e portugues.
+
+---
+
+## Future Improvements | Proximos Passos
+
+- Add automated chart export to keep README visuals updated.
+- Add a `requirements.txt` or environment file when dependencies are needed.
+- Include data dictionary, modeling assumptions and evaluation metrics when applicable.
+- Adicionar exportacao automatica dos graficos para manter o README atualizado.
+- Adicionar `requirements.txt` ou arquivo de ambiente quando houver dependencias.
+- Incluir dicionario de dados, premissas de modelagem e metricas de avaliacao quando aplicavel.
+
+---
+
+## Author | Autor
+
+Henry
